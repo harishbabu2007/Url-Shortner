@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Url Shortner By Harish</title>
+  </head>
+  <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    rel="stylesheet"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- MDB -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      background-color: #2e4053;
+      color: #fff;
+    }
+
+    .url-form-holder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+    }
+
+    .url-card {
+      background-color: #212f3d;
+    }
+
+    .url-input {
+      outline: none;
+      border-radius: 5px;
+      border-color: #fff;
+    }
+
+    .success-alert {
+      padding: 10px;
+      padding-bottom: 1px;
+      background-color: #58d68d;
+      border-radius: 5px;
+    }
+
+    .error-alert {
+      padding: 10px;
+      padding-bottom: 1px;
+      background-color: #e74c3c;
+      border-radius: 5px;
+    }
+
+    .footer {
+      padding: 10px;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #1c2833;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div class="url-form-holder">
+      <div class="card url-card">
+        <div class="text-center">
+          <h2 class="card-header">Url Shortner</h2>
+        </div>
+
+        <div class="card-body">
+          {% if messages %}
+          <!--  -->
+          {% if error %}
+          <div class="error-alert">
+            <p>{{messages}}</p>
+          </div>
+          <br />
+          {% else %}
+          <div class="success-alert">
+            <p>
+              {{messages}}
+              <span
+                ><a
+                  target="_blank"
+                  style="text-decoration: underline"
+                  href="{{url}}"
+                  >go to url</a
+                ></span
+              >
+              <span id="url_span"></span>
+            </p>
+          </div>
+          <br />
+          {% endif %}
+          <!--  -->
+          {% endif %}
+
+          <h5 class="card-title">You can shorten any url using this app</h5>
+
+          <form action="#" method="POST">
+            {% csrf_token %}
+            <label>Url Address</label><br />
+            <input type="url" name="url" class="url-input" required />
+            <br /><br />
+            <label>shortname</label><br />
+            <input type="text" name="name" class="url-input" required />
+            <br /><br />
+            <button type="submit" class="btn btn-success w-100">
+              Create Short URL
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <h2>Made by Harish</h2>
+    </div>
+  </body>
+  <!-- MDB -->
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"
+  ></script>
+  <script>
+    url_text = document.location.origin + "/" + "{{url_name}}";
+    document.getElementById("url_span").innerHTML = `
+    <p style="color: black">${url_text}</p>
+    `;
+  </script>
+</html>
